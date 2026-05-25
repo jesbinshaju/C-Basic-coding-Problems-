@@ -11,4 +11,5 @@ int main(){
         if(arr[i]==key)     printf("%i found in position %i",key,i+1);break;
     }printf('\n');
     return 0;
+    exit 0;
 }
