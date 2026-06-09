@@ -1,10 +1,11 @@
 #include <stdio.h>
 #include <math.h>
 int main() {
-    int count = 0, i, n, org, rem = 0;//Initializing all the variables
+    int count = 0, i, n, org, rem = 0;
     double res = 0.0;
 
-    printf("Enter n: ");scanf("%i", &n);//Inputting n from the user
+    printf("Enter n: ");scanf("%i", &n);
+    if(n==0){printf("Armstrong Number");}
 
     org = n;//Copying the value to avariable for future comparison
 
@@ -16,5 +17,5 @@ int main() {
         rem = n % 10;res = res + pow(rem, count); n = n / 10;
     }
     
-    if (org == (int)res) printf("Armstrong\n");
-    else printf("Not armstrong\n");}
+    if (org == (int)res) printf("Armstrong Number\n");
+    else printf("Not armstrong Number\n");}
