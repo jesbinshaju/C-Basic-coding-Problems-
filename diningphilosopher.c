@@ -3,7 +3,7 @@
 #include <pthread.h>
 #include <semaphore.h>
 #include <unistd.h>
-
+// This works in LINUX Machine
 #define N 5  
 
 sem_t chopstick[N];
