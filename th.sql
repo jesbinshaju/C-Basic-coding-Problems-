@@ -50,8 +50,20 @@ COMMIT;
  where d.loc=dep.place;
 
 
+create table student(
+    rollno number,
+    mark number
+);
+insert into student values(1,35);
+insert into student values(2,40);
 
 
 
+commit;
+
+declare 
+    v_avg_mark number;
+begin
+    select rollno , mark , round
 
 
