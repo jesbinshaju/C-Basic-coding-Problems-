@@ -58,7 +58,7 @@ insert into student values(1,35);
 insert into student values(2,40);
 
 
-
+fg
 commit;
 
 declare 
