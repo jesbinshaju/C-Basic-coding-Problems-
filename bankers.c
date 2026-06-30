@@ -1,7 +1,7 @@
 #include <stdio.h>
 int main() {
     // Standard variables: n=processes, m=resources
-    int n, m, i, j, k;
+    int n, m, i, j, k=0;
     
     // Max size 10x10 to keep it simple
     int alloc[10][10], max[10][10], need[10][10];
@@ -43,49 +43,49 @@ int main() {
         }
         finish[i] = 0; // Initialize finish array to false (0)
     }
-
-    // Initialize Work array = Available array
-    for (j = 0; j < m; j++) {
-        work[j] = avail[j];
+    printf("Need Matrix\n");
+    for(i=0;i<n;i++){
+        for(j=0;j<m;j++){
+            printf("%d ",need[i][j]);
+        }printf("\n");
     }
 
-    // 5. Safety Algorithm (The core logic)
-    while (count < n) {
-        found = 0;
-        for (i = 0; i < n; i++) {
-            if (finish[i] == 0) { // If process not finished
-                int canAllocate = 1;
-                // Check if Need <= Work
-                for (j = 0; j < m; j++) {
-                    if (need[i][j] > work[j]) {
-                        canAllocate = 0;
+    int possible=1;
+    //Core logic in bankers algorithm
+    while(count<n){
+        int found=0;
+        for(j=0;j<n;j++){
+            if(finish[j]==0){
+                possible=1;
+                for(int r=0;r<m;r++){
+                    if(avail[r]<need[j][r]){
+                        possible=0;
                         break;
                     }
                 }
-
-                if (canAllocate == 1) {
-                    // Process can finish
-                    for (k = 0; k < m; k++) {
-                        work[k] += alloc[i][k]; // Release resources
+                if(possible){
+                    for(int r=0;r<m;r++){
+                        avail[r]=avail[r]+alloc[j][r];
                     }
-                    safeSeq[count++] = i; // Add to safe sequence
-                    finish[i] = 1;        // Mark as finished
-                    found = 1;
+                    finish[j]=1;
+                    safeSeq[k]=j;
+                    k++;
+                    found=1;
+                    count++;
                 }
             }
         }
-        // If we went through all processes and found none that can run -> Unsafe
-        if (found == 0) {
-            printf("\nSystem is in UNSAFE state.\n");
-            return 0;
+        if(found==0){
+            printf("The system is not in Safe State\n");
+            break;
         }
     }
-
     // If we reach here, system is Safe
-    printf("\nSystem is in SAFE state.\nSafe Sequence: ");
+   if(count==n){ printf("\nSystem is in SAFE state.\nSafe Sequence: ");
     for (i = 0; i < n; i++) {
         printf("P%d ", safeSeq[i]);
     }
+}
     printf("\n");
     return 0;
 }
